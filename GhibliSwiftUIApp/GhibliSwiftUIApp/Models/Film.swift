@@ -15,7 +15,7 @@ struct Film: Codable, Identifiable {
     let producer: String
     
     let releaseYear: String
-    let duration: Int
+    let duration: String
     let score: String
     
     let image: String
@@ -31,3 +31,21 @@ struct Film: Codable, Identifiable {
        
     }
 }
+
+/*
+ download xcode 26 in video 14: 50 timestamp
+ import Playgrounds
+ 
+ #Playground {
+    do {
+    let url = URLString(string: "https://ghibliapi")!
+    let (data, response) = try await URLSession.shared.data(from: url)
+    try JSONDecoder().decode([Films]).decode([Film].self, from: data)
+    } catch {
+     print(error)
+ }
+ 
+ }
+ 
+ */
+
