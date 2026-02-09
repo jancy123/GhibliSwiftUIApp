@@ -14,6 +14,8 @@ struct FilmListView: View {
     var body: some View {
         List(filmsViewModel.films) {
             Text($0.title)
+        }.task {
+            await filmsViewModel.fetchFilms()
         }
     }
 }
