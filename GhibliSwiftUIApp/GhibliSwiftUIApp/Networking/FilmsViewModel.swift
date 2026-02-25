@@ -12,6 +12,20 @@ enum APIError: LocalizedError {
     case invalidResponse
     case decoding(Error)
     case networkError(Error)
+    
+    var errorDescription: String? {
+        switch self {
+        case .invalidURL:
+            return "The URL is invalid"
+        case .invalidResponse:
+            return "Invalid response from server"
+        case .decoding(let error):
+            return "Failed to decode response: \(error.localizedDescription)"
+        case .networkError(let error):
+            return "Network error: \(error.localizedDescription)"
+            
+        }
+    }
 }
 
 @Observable
@@ -29,11 +43,14 @@ class FilmsViewModel {
         guard state == .idle else { return }
         state = .idle
         do {
+            self.state = .loading
             let films = try await fetchFilms()
             self.state = .loaded(films)
-            self.state = .loading
-        } catch {
             
+        } catch let error as APIError {
+            self.state = .error(error.errorDescription ?? "unknown error")
+        } catch {
+            self.state = .error(error.localizedDescription)
         }
     }
     private func fetchFilms() async throws -> [Film] {
