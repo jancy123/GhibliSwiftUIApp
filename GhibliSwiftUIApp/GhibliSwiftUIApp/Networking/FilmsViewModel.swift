@@ -41,9 +41,9 @@ class FilmsViewModel {
     var state: State = .idle
     func fetch() async {
         guard state == .idle else { return }
-        state = .idle
+        self.state = .loading
         do {
-            self.state = .loading
+            
             let films = try await fetchFilms()
             self.state = .loaded(films)
             
