@@ -5,7 +5,7 @@
 //  Created by Jancy on 2/9/26.
 //
 
-struct People: Codable {
+struct Person: Codable {
     let id: String
     let name: String
     let gender: String
