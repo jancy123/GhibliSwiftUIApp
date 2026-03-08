@@ -12,16 +12,22 @@ struct DefaultGhibliService: GhibliService {
         guard let url = URL(string: URLString) else {
             throw APIError.invalidURL }
         do {
+            print("url>> \(url)")
                 let (data, response) = try await URLSession.shared.data(from: url)
             guard let httpResponse = response as? HTTPURLResponse,
                   (200...299).contains(httpResponse.statusCode) else {
                 throw APIError.invalidResponse
             }
-            
                 return try JSONDecoder().decode(type, from: data)
         } catch let error as DecodingError {
             throw APIError.decodingError(error)
-        } catch let error as URLError {
+        }
+//            catch let DecodingError.typeMismatch(type, context) {
+//            print("Type '\(type)' mismatch:", context.debugDescription)
+//            print("CodingPath:", context.codingPath)
+//            throw APIError.decodingError("Type '\(context.debugDescription)' mismatch:")
+//        }
+        catch let error as URLError {
             throw APIError.networkError(error)
         }
     }

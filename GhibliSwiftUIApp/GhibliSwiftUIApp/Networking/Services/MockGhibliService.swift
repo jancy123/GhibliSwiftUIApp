@@ -38,4 +38,10 @@ struct MockGhibliService: GhibliService {
         let data = try loadSampleData()
         return data.people.first!
     }
+    
+    func fetchFilm() -> Film {
+        let data = try! loadSampleData()
+        return data.films.first!
+    }
+    
 }

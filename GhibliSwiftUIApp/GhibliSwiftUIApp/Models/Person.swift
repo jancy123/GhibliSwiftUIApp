@@ -5,14 +5,14 @@
 //  Created by Jancy on 2/9/26.
 //
 
-struct Person: Codable {
+struct Person: Identifiable, Decodable, Equatable {
     let id: String
     let name: String
     let gender: String
     let age: String
     let eyeColor: String
     let hairColor: String
-    let films: [Film]
+    let films: [String]
     let species: String
     let url: String
     
