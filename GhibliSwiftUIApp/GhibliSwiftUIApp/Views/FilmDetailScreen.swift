@@ -13,22 +13,7 @@ struct FilmDetailScreen: View {
     @State private var viewModel = FilmDetailViewModel()
     var body: some View {
         VStack(alignment: .leading) {
-            AsyncImage(url: URL(string: film.bannerImage)) { phase in
-                switch phase {
-                case .empty:
-                    Color.gray
-                case .success(let image):
-                    image
-                        .resizable()
-                        .scaledToFill()
-                case .failure(let error):
-                    Text("Could not get image")
-                @unknown default:
-                    fatalError()
-                }
-            }
-            .frame(height: 200)
-            .clipped()
+            
             Text(film.title)
             
             Divider()
