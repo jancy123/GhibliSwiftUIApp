@@ -14,8 +14,8 @@ struct FilmDetailScreen: View {
     var body: some View {
         VStack(alignment: .leading) {
             FilmImageView(urlPath: film.bannerImage)
-                .frame(height: 300)
-                .border(.red)
+                .frame(height: 230)
+                .containerRelativeFrame(.horizontal)
             ScrollView {
                 VStack(alignment: .leading) {
                     Text(film.title)
