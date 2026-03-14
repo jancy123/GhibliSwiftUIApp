@@ -17,6 +17,8 @@ class FilmDetailViewModel {
         case error(String)
     }
     var state: State = .idle
+    
+   
     private let service: GhibliService
     
     init(service: GhibliService = DefaultGhibliService()) {
