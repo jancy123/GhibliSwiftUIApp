@@ -11,15 +11,18 @@ import Observation
 @Observable
 class FavoritesViewModel {
     private(set) var favoriteIDs: Set<String> = []
-    private let favoritesKey = "GhibliExplorer.FavoriteFilms"
+    private let service: FavoriteStorage
     
-    func load() {
-        let array = UserDefaults.standard.stringArray(forKey: favoritesKey) ?? []
-        favoriteIDs = Set(array)
+    init(service: FavoriteStorage = DefaultFavoriteStorage()) {
+        self.service = service
     }
     
-    func save() {
-        UserDefaults.standard.set(favoriteIDs, forKey: favoritesKey)
+    func load() {
+        service.load()
+    }
+    
+    private func save() {
+        service.save(favoriteIDs: favoriteIDs)
     }
     
     func toggleFavorite(filmID: String) {
