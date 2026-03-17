@@ -33,7 +33,11 @@ struct Film: Codable, Identifiable, Equatable, Hashable {
     //MARK: Preview
     
     static var example: Film {
-        MockGhibliService().fetchFilm()
+        MockGhibliService().fetchFilm()[0]
+    }
+    
+    static var exampleFavorite: Film {
+        MockGhibliService().fetchFilm()[1]
     }
 }
 

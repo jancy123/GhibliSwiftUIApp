@@ -39,9 +39,9 @@ struct MockGhibliService: GhibliService {
         return data.people.first!
     }
     
-    func fetchFilm() -> Film {
+    func fetchFilm() -> [Film] {
         let data = try! loadSampleData()
-        return data.films.first!
+        return Array(data.films.prefix(2))
     }
     
 }

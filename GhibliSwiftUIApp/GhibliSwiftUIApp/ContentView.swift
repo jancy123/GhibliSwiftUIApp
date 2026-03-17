@@ -29,7 +29,9 @@ struct ContentView: View {
                 SearchScreen()
             }
         }
-    
+        .task {
+            favoritesViewModel.load()
+        }
     }
 }
 

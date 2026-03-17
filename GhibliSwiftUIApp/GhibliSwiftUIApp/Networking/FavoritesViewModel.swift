@@ -18,7 +18,7 @@ class FavoritesViewModel {
     }
     
     func load() {
-        service.load()
+        favoriteIDs = service.load()
     }
     
     private func save() {
