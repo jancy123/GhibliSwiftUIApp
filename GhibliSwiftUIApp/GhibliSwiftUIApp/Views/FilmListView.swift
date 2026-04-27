@@ -30,10 +30,6 @@ private struct FilmRow: View {
     let film: Film
     let favoritesViewModel: FavoritesViewModel
     
-    var isFavorite: Bool {
-        favoritesViewModel.isFavorite(filmId: film.id)
-    }
-    
     var body: some View {
         
         HStack(alignment: .top) {
@@ -44,12 +40,8 @@ private struct FilmRow: View {
                         Text(film.title)
                             .bold()
                         Spacer()
-                        Button {
-                            favoritesViewModel.toggleFavorite(filmID: film.id)
-                        } label: {
-                            Image(systemName: isFavorite ? "heart.fill" : "heart")
-                                .foregroundStyle(isFavorite ? Color.pink: Color.gray)
-                        }.buttonStyle(.plain)
+                        FavoriteButton(filmId: film.id, favoritesViewModel: favoritesViewModel)
+                            .buttonStyle(.plain)
                             .controlSize(.large)
                     }
                     .padding(.bottom)
@@ -74,7 +66,6 @@ private struct FilmRow: View {
         FilmListView(films: [Film.example, Film.exampleFavorite], favoritesViewModel: favorites)
     }
         .task {
-            //await vm.fetch()
             favorites.load()
         }
 }

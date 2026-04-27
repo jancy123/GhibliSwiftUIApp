@@ -44,4 +44,10 @@ struct MockGhibliService: GhibliService {
         return Array(data.films.prefix(2))
     }
     
+    func searchFilm(for searchTerm: String) async throws -> [Film] {
+        let allFilms = try await fetchFilms()
+        return allFilms.filter { film in
+            film.title.localizedStandardContains(searchTerm)
+        }
+    }
 }

@@ -11,9 +11,14 @@ struct FavoritesScreen: View {
     let filmsViewModel: FilmsViewModel
     let favoritesViewModel: FavoritesViewModel
     var films: [Film] {
-        //TODO: get favorites
-        // retrieve ids from storage from films data
-        return []
+        let favoriteIDs = favoritesViewModel.favoriteIDs
+        switch filmsViewModel.state {
+            case .loaded(let films):
+                return films.filter { favoriteIDs.contains($0.id) }
+        default:
+            return []
+        }
+        
     }
     var body: some View {
         NavigationStack {
@@ -30,5 +35,6 @@ struct FavoritesScreen: View {
 }
 
 #Preview {
-    FavoritesScreen(filmsViewModel: FilmsViewModel(service: MockGhibliService()), favoritesViewModel: FavoritesViewModel(service: MockFavoriteStorage()))
+    
+   FavoritesScreen(filmsViewModel: FilmsViewModel.example, favoritesViewModel: FavoritesViewModel.example)
 }

@@ -9,6 +9,10 @@ struct DefaultGhibliService: GhibliService {
     
     
     func fetch<T: Decodable>(from URLString: String, type: T.Type) async throws -> T {
+        /* I am just learning what utf8 means
+         let data1 = Data("".utf8)
+         */
+       
         guard let url = URL(string: URLString) else {
             throw APIError.invalidURL }
         do {
@@ -41,4 +45,10 @@ struct DefaultGhibliService: GhibliService {
         return try await fetch(from: URLString, type: Person.self)
     }
     
+    func searchFilm(for searchTerm: String) async throws -> [Film] {
+        let allFilms = try await fetchFilms()
+        return allFilms.filter { film in
+            film.title.localizedStandardContains(searchTerm)
+        }
+    }
 }
